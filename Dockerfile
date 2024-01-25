@@ -14,6 +14,7 @@ RUN apk update \
     && apk upgrade \
     && apk add nginx \
     && apk add icu-dev \
+    && apk add --no-cache libintl \
     && apk add --no-cache $PHPIZE_DEPS \
     && apk add --no-cache oniguruma-dev
 
