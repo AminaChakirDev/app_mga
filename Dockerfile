@@ -12,7 +12,10 @@ FROM php:8.2-fpm-alpine as phpserver
 # add cli tools
 RUN apk update \
     && apk upgrade \
-    && apk add nginx
+    && apk add nginx \
+    && apk add icu-dev \
+    && apk add --no-cache $PHPIZE_DEPS \
+    && apk add --no-cache oniguruma-dev
 
 # silently install 'docker-php-ext-install' extensions
 RUN set -x
