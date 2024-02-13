@@ -17,47 +17,81 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `simple-mvc`
+-- Base de données :  `app_mga`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `item`
+-- Structure de la table `member`
 --
 
-CREATE TABLE `item` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL
+CREATE TABLE `member` (
+  `id` int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `birthday` DATE NOT NULL,
+  `picture_url` varchar(255),
+  `size` INT,
+  `ref_bodysuit` varchar(100),
+  `ref_jacket` varchar(100),
+  `rent_is_paid` BOOLEAN,
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `item`
+-- Contenu de la table `member`
 --
 
-INSERT INTO `item` (`id`, `title`) VALUES
-(1, 'Stuff'),
-(2, 'Doodads');
+INSERT INTO `member` (`firstname`, `lastname`, `birthday`, `picture_url`, `size`, `ref_bodysuit`, `ref_jacket`, `rent_is_paid`) VALUES
+('Hania', 'Chakir', '2015-12-05', 'https://picsum.photos/200/300', 12, 'ref du justau Hania', 'ref de la veste Hania', true),
+('Iza', 'Chakir', '2012-03-20', 'https://picsum.photos/200/300', null, null, null, false);
 
 --
--- Index pour les tables exportées
+-- Structure de la table `parent`
 --
 
---
--- Index pour la table `item`
---
-ALTER TABLE `item`
-  ADD PRIMARY KEY (`id`);
+CREATE TABLE `parent` (
+  `id` int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255),
+  `address` varchar(255),
+  `phone` varchar(100),
+  `bank_id` int NOT NULL,
+  CONSTRAINT fk_parent_bank    
+        FOREIGN KEY (bank_id)             
+        REFERENCES bank(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- Contenu de la table `parent`
 --
 
+INSERT INTO `parent` (`firstname`, `lastname`, `email`, `password`, `address`, `phone`, `bank_id`) VALUES
+('Amina', 'Chakir', 'amina.aitm@gmail.com', 'password', '46 rue de la République 69330 Meyzieu', '0649819299', 1),
+('Rachid', 'Chakir', 'famille_chakir@yahoo.fr', 'password', '46 rue de la République 69330 Meyzieu', '0649819015', 2);
+
 --
--- AUTO_INCREMENT pour la table `item`
+-- Structure de la table `bank`
 --
-ALTER TABLE `item`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+CREATE TABLE `bank` (
+  `id` int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `bic` varchar(255) NOT NULL,
+  `iban` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `bank`
+--
+
+INSERT INTO `bank` (`name`, `bic`, `iban`) VALUES
+('BoursoBank', 'PSSTFR', '17806526637383993766'),
+('LCL', 'PSSTFR', '30002173776628993766');
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
