@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
+use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -25,5 +26,6 @@ abstract class AbstractController
             ]
         );
         $this->twig->addExtension(new DebugExtension());
+        $this->twig->addExtension(new IntlExtension());
     }
 }
